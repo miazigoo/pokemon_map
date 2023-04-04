@@ -3,7 +3,9 @@ from django.utils.safestring import mark_safe
 
 
 class Pokemon (models.Model):
-    title = models.CharField(verbose_name="Покемон", max_length=200)
+    title = models.CharField(verbose_name="Покемон_ru", max_length=200)
+    title_en = models.CharField(verbose_name="Покемон_en", max_length=200, null=True)
+    title_jp = models.CharField(verbose_name="Покемон_jp", max_length=200, null=True)
     photo = models.ImageField(verbose_name="Картинка", upload_to='pokemons', null=True)
     description = models.TextField(verbose_name='Описание', null=True)
 
