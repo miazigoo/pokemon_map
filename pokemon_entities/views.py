@@ -60,12 +60,12 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemon = get_object_or_404(Pokemon ,pk=pokemon_id)
-    pokemon_on_page = []
-    pokemon_on_page.append({
+    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+    pokemon_on_page = {
         'img_url': request.build_absolute_uri(pokemon.photo.url),
         'title_ru': pokemon.title,
-    })
+        'description': pokemon.description
+    }
     time_now = localtime()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     pokemon_entitys = get_list_or_404(PokemonEntity, pokemon=pokemon.pk)

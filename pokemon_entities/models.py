@@ -3,8 +3,9 @@ from django.utils.safestring import mark_safe
 
 
 class Pokemon (models.Model):
-    title = models.CharField(max_length=200)
-    photo = models.ImageField(upload_to='pokemons', null=True)
+    title = models.CharField(verbose_name="Покемон", max_length=200)
+    photo = models.ImageField(verbose_name="Картинка", upload_to='pokemons', null=True)
+    description = models.TextField(verbose_name='Описание', null=True)
 
     def __str__(self):
         return self.title
