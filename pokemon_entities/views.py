@@ -61,22 +61,28 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+    previous_evolution = None
+    next_evolution = None
     if pokemon.previous_evolution:
         previous_evolution = {
             'title': pokemon.previous_evolution.title,
             "pokemon_id": pokemon.previous_evolution.pk,
             "img_url": request.build_absolute_uri(pokemon.previous_evolution.photo.url)
         }
-    else:
-        previous_evolution = None
-    print('previous_', pokemon.previous_evolution)
+    if pokemon.next_evolution:
+        next_evolution = {
+            'title': pokemon.next_evolution.title,
+            "pokemon_id": pokemon.next_evolution.pk,
+            "img_url": request.build_absolute_uri(pokemon.next_evolution.photo.url)
+        }
     pokemon_on_page = {
         'img_url': request.build_absolute_uri(pokemon.photo.url),
         'title_ru': pokemon.title,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
-        'previous_evolution': previous_evolution
+        'previous_evolution': previous_evolution,
+        'next_evolution': next_evolution
     }
     time_now = localtime()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
