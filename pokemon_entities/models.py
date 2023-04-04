@@ -1,4 +1,6 @@
 from django.db import models  # noqa F401
+from django.utils.safestring import mark_safe
+
 
 class Pokemon (models.Model):
     title = models.CharField(max_length=200)
@@ -8,9 +10,10 @@ class Pokemon (models.Model):
         return self.title
 
     @property
-    def photo_url(self):
-        if self.photo and hasattr(self.photo, 'url'):
-            return self.photo.url
+    def photo_preview(self):
+        if self.photo:
+            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.photo.url))
+        return ""
 
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, verbose_name="Покемон")
