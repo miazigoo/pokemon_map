@@ -7,6 +7,11 @@ class Pokemon (models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def photo_url(self):
+        if self.photo and hasattr(self.photo, 'url'):
+            return self.photo.url
+
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, verbose_name="Покемон")
     lat = models.FloatField(verbose_name="Широта")
