@@ -9,9 +9,9 @@ class Pokemon(models.Model):
     photo = models.ImageField(verbose_name="Картинка", upload_to='pokemons', null=True)
     description = models.TextField(verbose_name='Описание', null=True)
     previous_evolution = models.ForeignKey("Pokemon", on_delete=models.CASCADE, blank=True, null=True,
-                                           verbose_name="Эволюция из кого", related_name='evolution_from')
+                                           verbose_name="Из кого эволюционирует", related_name='next_evolutions')
     next_evolution = models.ForeignKey("Pokemon", on_delete=models.CASCADE, blank=True, null=True,
-                                       verbose_name="Эволюция в кого", related_name='evolution_in')
+                                       verbose_name="В кого эволюционирует", related_name='previous_evolutions')
 
     def __str__(self):
         return self.title
