@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Pokemon, PokemonEntity
 
 class PokemonEntityAdmin(admin.ModelAdmin):
-    list_display = ['lat', 'lon', 'pokemon']
+    list_display = ['pokemon']
 
 admin.site.register(PokemonEntity,PokemonEntityAdmin)
 
