@@ -69,11 +69,13 @@ def show_pokemon(request, pokemon_id):
             "pokemon_id": pokemon.previous_evolution.pk,
             "img_url": request.build_absolute_uri(pokemon.previous_evolution.photo.url)
         }
-    if pokemon.next_evolution:
+    if pokemon.next_evolutions.all():
+        evolutions = pokemon.next_evolutions.all().first()
+        print('evolutions ', evolutions)
         next_evolution = {
-            'title': pokemon.next_evolution.title,
-            "pokemon_id": pokemon.next_evolution.pk,
-            "img_url": request.build_absolute_uri(pokemon.next_evolution.photo.url)
+            'title': evolutions.title,
+            "pokemon_id": evolutions.pk,
+            "img_url": request.build_absolute_uri(evolutions.photo.url)
         }
     pokemon_on_page = {
         'img_url': request.build_absolute_uri(pokemon.photo.url),

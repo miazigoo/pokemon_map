@@ -10,8 +10,6 @@ class Pokemon(models.Model):
     description = models.TextField(verbose_name='Описание')
     previous_evolution = models.ForeignKey("Pokemon", on_delete=models.CASCADE, blank=True, null=True,
                                            verbose_name="Из кого эволюционирует", related_name='next_evolutions')
-    next_evolution = models.ForeignKey("Pokemon", on_delete=models.CASCADE, blank=True, null=True,
-                                       verbose_name="В кого эволюционирует", related_name='previous_evolutions')
 
     def __str__(self):
         return self.title
