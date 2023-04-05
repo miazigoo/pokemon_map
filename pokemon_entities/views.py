@@ -41,12 +41,9 @@ def show_all_pokemons(request):
             'title_ru': pokemon.title,
         })
 
-    pokemon_entitys = get_list_or_404(PokemonEntity)
+    pokemon_entitys = get_list_or_404(PokemonEntity,
+                                      appeared_at__lte=time_now, disappeared_at__gt=time_now)
     for pokemon_entity in pokemon_entitys:
-        if localtime(pokemon_entity.appeared_at) > time_now:
-            continue
-        if localtime(pokemon_entity.disappeared_at) <= time_now:
-            continue
         add_pokemon(
             folium_map, pokemon_entity.lat,
             pokemon_entity.lon,
@@ -88,12 +85,8 @@ def show_pokemon(request, pokemon_id):
     }
     time_now = localtime()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    pokemon_entitys = pokemon.pokemon_entity.all()
+    pokemon_entitys = pokemon.pokemon_entity.filter(appeared_at__lte=time_now, disappeared_at__gt=time_now)
     for pokemon_entity in pokemon_entitys:
-        if pokemon_entity.appeared_at > time_now:
-            continue
-        if pokemon_entity.disappeared_at <= time_now:
-            continue
         add_pokemon(
             folium_map, pokemon_entity.lat,
             pokemon_entity.lon,
