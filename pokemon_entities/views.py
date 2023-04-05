@@ -41,17 +41,17 @@ def show_all_pokemons(request):
             'title_ru': pokemon.title,
         })
 
-        pokemon_entitys = get_list_or_404(PokemonEntity, pokemon=pokemon.pk)
-        for pokemon_entity in pokemon_entitys:
-            if pokemon_entity.appeared_at > time_now:
-                continue
-            if pokemon_entity.disappeared_at <= time_now:
-                continue
-            add_pokemon(
-                folium_map, pokemon_entity.lat,
-                pokemon_entity.lon,
-                request.build_absolute_uri(pokemon.photo.url),
-            )
+    pokemon_entitys = get_list_or_404(PokemonEntity)
+    for pokemon_entity in pokemon_entitys:
+        if localtime(pokemon_entity.appeared_at) > time_now:
+            continue
+        if localtime(pokemon_entity.disappeared_at) <= time_now:
+            continue
+        add_pokemon(
+            folium_map, pokemon_entity.lat,
+            pokemon_entity.lon,
+            request.build_absolute_uri(pokemon_entity.pokemon.photo.url),
+        )
 
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
