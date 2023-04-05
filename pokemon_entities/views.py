@@ -86,7 +86,7 @@ def show_pokemon(request, pokemon_id):
     }
     time_now = localtime()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    pokemon_entitys = get_list_or_404(PokemonEntity, pokemon=pokemon.pk)
+    pokemon_entitys = pokemon.pokemon_entity.all()
     for pokemon_entity in pokemon_entitys:
         if pokemon_entity.appeared_at > time_now:
             continue
