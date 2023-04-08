@@ -23,7 +23,7 @@ class Pokemon(models.Model):
 
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE,
-                                verbose_name="Покемон", related_name='pokemon_entity')
+                                verbose_name="Покемон", related_name='pokemon_entitys')
     lat = models.FloatField(verbose_name="Широта")
     lon = models.FloatField(verbose_name="Долгота")
     appeared_at = models.DateTimeField(verbose_name="Появится в:", blank=True)
